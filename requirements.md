@@ -10,7 +10,7 @@ We need you, the developer, to implement the following feature requirements to m
 
 ## BankBer Requirements
 
-1. Transactions should have a description **__Top Priority!__ Do this first!**
+1. Transactions should have a description **_Top Priority!_ Do this first!**
     - Examples:
         - A paycheck description might say "MORTGAGE RESEAR PAYROLL"
         - A gas bill might say "Speedpay AmerenMO" 
