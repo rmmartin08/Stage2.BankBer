@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankBer.BackEnd", "BankBer.BackEnd\BankBer.BackEnd.csproj", "{A19B1509-4566-486D-8771-A94DC114B76B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankBer.BackEnd.Tests", "BankBer.BackEnd.Tests\BankBer.BackEnd.Tests.csproj", "{6B334BC6-8DAD-48E6-9EB6-79F413EC2143}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A19B1509-4566-486D-8771-A94DC114B76B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A19B1509-4566-486D-8771-A94DC114B76B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A19B1509-4566-486D-8771-A94DC114B76B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A19B1509-4566-486D-8771-A94DC114B76B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B334BC6-8DAD-48E6-9EB6-79F413EC2143}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B334BC6-8DAD-48E6-9EB6-79F413EC2143}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B334BC6-8DAD-48E6-9EB6-79F413EC2143}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B334BC6-8DAD-48E6-9EB6-79F413EC2143}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {299A0C8D-DB38-427A-9CAB-1D6054350E29}
+	EndGlobalSection
+EndGlobal

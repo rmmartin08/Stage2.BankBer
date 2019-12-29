@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BankBer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</head>
+
+<body class="w-75 mx-auto">
+    <h1 class="text-center">Welcome to BankBer</h1>
+    <hr>
+
+    <!-- Section for selecting a user -->
+    <div id="pick-user-div">
+        <h3 class="text-center">Who are you?</h3>
+        <div class="input-group">
+            <select class="form-control" id="user-select" disabled>
+                <option>Loading</option>
+            </select>
+            <div class="input-group-append">
+                <button type="button" class="btn btn-primary w-100" id="user-select-btn">Select User</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section for selecting an account -->
+    <div id="pick-account-div" style="display: none;">
+        <h3 class="text-center">Which account do you want to look at?</h3>
+        <div class="input-group">
+            <select class="form-control" id="account-select" disabled>
+                <option>Loading</option>
+            </select>
+            <div class="input-group-append">
+                <button type="button" class="btn btn-primary w-100" id="account-select-btn">Select Account</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section for viewing transactions -->
+    <div id="view-transaction-div" style="display: none;">
+        <h3 class="text-center">Viewing Transactions for <span id="account-name-span">No Name Selected</span></h3>
+        <table class="table table-hover" id="transaction-table">
+            <thead class="thead">
+                <th scope="col">Date</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Type</th>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot id="new-transaction-foot" class="collapse">
+                <tr>
+
+                    <td>
+                        <input class="form-control" id="new-transaction-date">
+                    </td>
+                    <td>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                            </div>
+                            <input type="number" class="form-control" id="new-transaction-amount">
+                        </div>
+                    </td>
+                    <td>
+
+                        <select id="new-transaction-type" class="form-control">
+                            <option value="Debit">Debit</option>
+                            <option value="Credit">Credit</option>
+                        </select>
+                        <br>
+                        <button id="submit-new-transaction-btn" class="btn btn-success w-100">Add Transaction</button>
+                </tr>
+            </tfoot>
+        </table>
+        <button class="btn btn-success w-100" type="button" id="add-transaction-btn">
+            Add New Transaction
+        </button>
+
+    </div>
+</body>
+
+</html>
