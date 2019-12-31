@@ -95,12 +95,17 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\TransactionsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Data_Access\AccountDao.cs" />
     <Compile Include="Data_Access\DaoBase.cs" />
     <Compile Include="Data_Access\TransactionDao.cs" />
-    <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\Account\Account.cs" />
+    <Compile Include="Models\Account\ListAccount.cs" />
+    <Compile Include="Models\Account\NewAccount.cs" />
+    <Compile Include="Models\Account\UpdateAccount.cs" />
+    <Compile Include="Models\Transaction\NewTransaction.cs" />
+    <Compile Include="Models\Transaction\Transaction.cs" />
     <Compile Include="Data_Access\UserDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

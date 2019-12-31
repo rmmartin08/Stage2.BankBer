@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace BankBer.BackEnd.Models
+namespace BankBer.BackEnd.Models.Transaction
 {
     public class Transaction
     {
@@ -15,7 +12,8 @@ namespace BankBer.BackEnd.Models
             Debit,
             Credit
         }
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
+        public Guid AccountId { get; set; }
         public decimal Amount { get; set; }
 
         public TransactionType Type { get; set; }

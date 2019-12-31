@@ -3,39 +3,31 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BankBer.BackEnd.Models;
+using BankBer.BackEnd.Models.Account;
 using LiteDB;
 
 namespace BankBer.BackEnd.Data_Access
 {
-    public class DbAccount
+    public class AccountDao : DaoBase
     {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public List<Guid> TransactionIds { get; set; }
-    }
-
-    public class AccountDao: DaoBase
-    {
-        public Account InsertAccount(Account accountToInsert)
+        public Account InsertAccount(NewAccount accountToInsert)
         {
             using (var db = new LiteDatabase(BankBerDbLocation))
             {
-                var accountCol = db.GetCollection<DbAccount>("Accounts");
+                var accountCol = db.GetCollection<Account>("Accounts");
 
-                var newAccount = new DbAccount()
+                var account = new Account()
                 {
                     Id = Guid.NewGuid(),
+                    Name = accountToInsert.Name,
                     Type = accountToInsert.Type,
                     UserId = accountToInsert.UserId,
-                    Name = accountToInsert.Name
+                    TransactionIds = new List<Guid>()
                 };
 
-                accountCol.Insert(newAccount);
+                accountCol.Insert(account);
 
-                accountToInsert.Id = newAccount.Id;
-                return accountToInsert;
+                return account;
             }
         }
 
@@ -43,7 +35,7 @@ namespace BankBer.BackEnd.Data_Access
         {
             using (var db = new LiteDatabase(BankBerDbLocation))
             {
-                var accountCol = db.GetCollection<DbAccount>("Accounts");
+                var accountCol = db.GetCollection<Account>("Accounts");
 
                 var account = accountCol.FindById(id);
                 if (account == null)
@@ -53,41 +45,55 @@ namespace BankBer.BackEnd.Data_Access
 
                 var transactionDao = new TransactionDao();
 
-                return ConvertDbAccountToAccount(account);
+                return account;
             }
         }
 
-        public Account[] GetAccountsForUser(Guid userId)
+        public List<ListAccount> GetAccountsForUser(Guid userId)
         {
             using (var db = new LiteDatabase(BankBerDbLocation))
             {
-                var accountCol = db.GetCollection<DbAccount>("Accounts");
+                var accountCol = db.GetCollection<Account>("Accounts");
 
                 var foundAccounts = accountCol.Find(Query.EQ("UserId", userId));
 
-                return foundAccounts.Select(ConvertDbAccountToAccount).ToArray();
+                return foundAccounts.Select(a => new ListAccount()
+                {
+                    Id = a.Id,
+                    UserId = a.UserId,
+                    Name = a.Name,
+                    Type = a.Type
+                }).ToList();
             }
         }
 
-        public Account[] GetAllAccounts()
+        public List<ListAccount> GetAllAccounts()
         {
             using (var db = new LiteDatabase(BankBerDbLocation))
             {
-                var accountCol = db.GetCollection<DbAccount>("Accounts");
+                var accountCol = db.GetCollection<Account>("Accounts");
 
                 var accounts = accountCol.FindAll().ToArray();
 
-                return accounts.Select(ConvertDbAccountToAccount).ToArray();
+                return accounts
+                    .Select(a => new ListAccount()
+                    {
+                        Id = a.Id,
+                        Name = a.Name,
+                        Type = a.Type,
+                        UserId = a.UserId
+                    })
+                    .ToList();
             }
         }
 
-        public void UpdateAccount(Account accountToUpdate)
+        public void UpdateAccount(Guid accountId, UpdateAccount accountToUpdate)
         {
             using (var db = new LiteDatabase(BankBerDbLocation))
             {
-                var userCol = db.GetCollection<DbAccount>("Accounts");
+                var userCol = db.GetCollection<Account>("Accounts");
 
-                var foundAccount = userCol.FindById(accountToUpdate.Id.Value);
+                var foundAccount = userCol.FindById(accountId);
 
                 if (foundAccount == null)
                 {
@@ -106,21 +112,6 @@ namespace BankBer.BackEnd.Data_Access
 
                 return;
             }
-        }
-
-        private Account ConvertDbAccountToAccount(DbAccount account)
-        {
-            var transactionDao = new TransactionDao();
-            return new Account()
-            {
-                Id = account.Id,
-                Type = account.Type,
-                UserId = account.UserId,
-                Name = account.Name,
-                Transactions =
-                    account.TransactionIds?.Select(t => transactionDao.GetTransactionById(t)).ToArray() ??
-                    new Transaction[0]
-            };
         }
     }
 }

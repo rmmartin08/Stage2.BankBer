@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using BankBer.BackEnd.Data_Access;
 using BankBer.BackEnd.Models;
+using BankBer.BackEnd.Models.Account;
 
 namespace BankBer.BackEnd.Controllers
 {
@@ -25,14 +26,6 @@ namespace BankBer.BackEnd.Controllers
         {
             var dao = new UserDao();
             return dao.GetUserById(userId);
-        }
-
-        [HttpGet]
-        [Route("{userId:Guid}/accounts")]
-        public Account[] GetAccountsForUser([FromUri] Guid userId)
-        {
-            var dao = new AccountDao();
-            return dao.GetAccountsForUser(userId);
         }
 
         [HttpPost]

@@ -4,12 +4,33 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using BankBer.BackEnd.Models;
+using BankBer.BackEnd.Models.Account;
+using BankBer.BackEnd.Models.Transaction;
 using LiteDB;
 
 namespace BankBer.BackEnd.Data_Access
 {
     public class TransactionDao: DaoBase
     {
+        public List<Transaction> GetAllTransactionsForAccount(Guid accountId)
+        {
+            using (var db = new LiteDatabase(BankBerDbLocation))
+            {
+                var transactionCol = db.GetCollection<Transaction>("Transactions");
+                var accountCol = db.GetCollection<Account>("Accounts");
+
+                var foundAccount = accountCol.FindById(accountId);
+                if (foundAccount == null)
+                {
+                    throw new KeyNotFoundException();
+                }
+
+                var transactions = transactionCol.Find(t => foundAccount.TransactionIds.Contains(t.Id));
+
+                return transactions.ToList();
+            }
+        }
+
         public Transaction GetTransactionById(Guid transactionId)
         {
             using (var db = new LiteDatabase(BankBerDbLocation))
@@ -20,12 +41,12 @@ namespace BankBer.BackEnd.Data_Access
             }
         }
 
-        public Transaction InsertTransaction(Guid accountId, Transaction newTransaction)
+        public Transaction InsertTransaction(NewTransaction newTransaction)
         {
             using (var db = new LiteDatabase(BankBerDbLocation))
             {
-                var accountsCol = db.GetCollection<DbAccount>("Accounts");
-                var foundAccount = accountsCol.FindById(accountId);
+                var accountsCol = db.GetCollection<Account>("Accounts");
+                var foundAccount = accountsCol.FindById(newTransaction.AccountId);
                 if (foundAccount == null)
                 {
                     throw new KeyNotFoundException();
@@ -33,19 +54,25 @@ namespace BankBer.BackEnd.Data_Access
 
                 var transactionCol = db.GetCollection<Transaction>("Transactions");
 
-                newTransaction.Id = Guid.NewGuid();
-                newTransaction.Timestamp = DateTime.Now;
+                var transaction = new Transaction()
+                {
+                    Id = Guid.NewGuid(),
+                    AccountId = newTransaction.AccountId,
+                    Timestamp = DateTime.Now,
+                    Amount = newTransaction.Amount,
+                    Type = newTransaction.Type
+                };
 
-                transactionCol.Insert(newTransaction);
+                transactionCol.Insert(transaction);
 
                 if (foundAccount.TransactionIds == null)
                 {
                     foundAccount.TransactionIds = new List<Guid>();
                 }
-                foundAccount.TransactionIds.Add(newTransaction.Id.Value);
+                foundAccount.TransactionIds.Add(transaction.Id);
                 accountsCol.Update(foundAccount);
 
-                return newTransaction;
+                return transaction;
             }
         }
     }

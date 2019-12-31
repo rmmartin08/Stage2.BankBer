@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.WebSockets;
 using BankBer.BackEnd.Data_Access;
 using BankBer.BackEnd.Models;
+using BankBer.BackEnd.Models.Account;
 
 namespace BankBer.BackEnd.Controllers
 {
@@ -14,10 +15,17 @@ namespace BankBer.BackEnd.Controllers
     public class AccountsController : ApiController
     {
         [HttpGet]
-        public Account[] GetAllAccounts()
+        public List<ListAccount> GetAllAccounts()
         {
             var accountDao = new AccountDao();
             return accountDao.GetAllAccounts();
+        }
+        
+        [HttpGet]
+        public List<ListAccount> GetAccountsForUser([FromUri] Guid userId)
+        {
+            var dao = new AccountDao();
+            return dao.GetAccountsForUser(userId);
         }
 
         [HttpGet]
@@ -29,25 +37,18 @@ namespace BankBer.BackEnd.Controllers
         }
 
         [HttpPost]
-        public Account NewAccount(Account newAccount)
+        public Account NewAccount(NewAccount newAccount)
         {
             var accountDao = new AccountDao();
             return accountDao.InsertAccount(newAccount);
         }
 
         [HttpPut]
-        public void UpdateAccount(Account accountToUpdate)
+        [Route("{accountId:Guid}")]
+        public void UpdateAccount(Guid accountId, UpdateAccount accountToUpdate)
         {
             var accountDao = new AccountDao();
-            accountDao.UpdateAccount(accountToUpdate);
-        }
-
-        [HttpPost]
-        [Route("{accountId:Guid}/transactions")]
-        public Transaction AddTransaction(Guid accountId, Transaction newTransaction)
-        {
-            var transactionDao = new TransactionDao();
-            return transactionDao.InsertTransaction(accountId, newTransaction);
+            accountDao.UpdateAccount(accountId, accountToUpdate);
         }
     }
 }
