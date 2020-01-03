@@ -21,8 +21,7 @@ namespace BankBer.BackEnd.Data_Access
                     Id = Guid.NewGuid(),
                     Name = accountToInsert.Name,
                     Type = accountToInsert.Type,
-                    UserId = accountToInsert.UserId,
-                    TransactionIds = new List<Guid>()
+                    UserId = accountToInsert.UserId
                 };
 
                 accountCol.Insert(account);
@@ -49,7 +48,7 @@ namespace BankBer.BackEnd.Data_Access
             }
         }
 
-        public List<ListAccount> GetAccountsForUser(Guid userId)
+        public List<Account> GetAccountsForUser(Guid userId)
         {
             using (var db = new LiteDatabase(BankBerDbLocation))
             {
@@ -57,33 +56,19 @@ namespace BankBer.BackEnd.Data_Access
 
                 var foundAccounts = accountCol.Find(Query.EQ("UserId", userId));
 
-                return foundAccounts.Select(a => new ListAccount()
-                {
-                    Id = a.Id,
-                    UserId = a.UserId,
-                    Name = a.Name,
-                    Type = a.Type
-                }).ToList();
+                return foundAccounts.ToList();
             }
         }
 
-        public List<ListAccount> GetAllAccounts()
+        public List<Account> GetAllAccounts()
         {
             using (var db = new LiteDatabase(BankBerDbLocation))
             {
                 var accountCol = db.GetCollection<Account>("Accounts");
 
-                var accounts = accountCol.FindAll().ToArray();
+                var accounts = accountCol.FindAll();
 
-                return accounts
-                    .Select(a => new ListAccount()
-                    {
-                        Id = a.Id,
-                        Name = a.Name,
-                        Type = a.Type,
-                        UserId = a.UserId
-                    })
-                    .ToList();
+                return accounts.ToList();
             }
         }
 

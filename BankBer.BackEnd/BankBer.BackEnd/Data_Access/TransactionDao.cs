@@ -17,15 +17,15 @@ namespace BankBer.BackEnd.Data_Access
             using (var db = new LiteDatabase(BankBerDbLocation))
             {
                 var transactionCol = db.GetCollection<Transaction>("Transactions");
-                var accountCol = db.GetCollection<Account>("Accounts");
+                //var accountCol = db.GetCollection<Account>("Accounts");
 
-                var foundAccount = accountCol.FindById(accountId);
-                if (foundAccount == null)
-                {
-                    throw new KeyNotFoundException();
-                }
+                //var foundAccount = accountCol.FindById(accountId);
+                //if (foundAccount == null)
+                //{
+                //    throw new KeyNotFoundException();
+                //}
 
-                var transactions = transactionCol.Find(t => foundAccount.TransactionIds.Contains(t.Id));
+                var transactions = transactionCol.Find(t => t.AccountId == accountId);
 
                 return transactions.ToList();
             }
@@ -64,13 +64,6 @@ namespace BankBer.BackEnd.Data_Access
                 };
 
                 transactionCol.Insert(transaction);
-
-                if (foundAccount.TransactionIds == null)
-                {
-                    foundAccount.TransactionIds = new List<Guid>();
-                }
-                foundAccount.TransactionIds.Add(transaction.Id);
-                accountsCol.Update(foundAccount);
 
                 return transaction;
             }

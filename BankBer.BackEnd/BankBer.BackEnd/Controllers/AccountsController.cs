@@ -15,14 +15,14 @@ namespace BankBer.BackEnd.Controllers
     public class AccountsController : ApiController
     {
         [HttpGet]
-        public List<ListAccount> GetAllAccounts()
+        public List<Account> GetAllAccounts()
         {
             var accountDao = new AccountDao();
             return accountDao.GetAllAccounts();
         }
         
         [HttpGet]
-        public List<ListAccount> GetAccountsForUser([FromUri] Guid userId)
+        public List<Account> GetAccountsForUser([FromUri] Guid userId)
         {
             var dao = new AccountDao();
             return dao.GetAccountsForUser(userId);
