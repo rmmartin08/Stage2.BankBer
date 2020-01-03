@@ -12,7 +12,7 @@ $(function () {
 
             userSelect.prop("disabled", false);
         })
-        .fail(function(err){
+        .fail(function (err) {
             alert("Failed to get users. Are you sure BankBer.BackEnd is running?")
         });
 
@@ -32,7 +32,7 @@ $(function () {
 
                 accountSelect.prop("disabled", false);
             })
-            .fail(function(err){
+            .fail(function (err) {
                 alert("Failed to get accounts for user. Are you sure BankBer.BackEnd is running?")
             });
     });
@@ -42,9 +42,9 @@ $(function () {
             $("#view-transaction-div").slideDown("fast");
         });
         let selectedAccountId = $("#account-select option:selected").val();
-        
+
         $.ajax(`http://localhost:2226/api/accounts/${selectedAccountId}`)
-            .done(function(account){
+            .done(function (account) {
                 selectedAccount = account;
                 $("#account-name-span").text(account.Name);
             });
@@ -52,7 +52,7 @@ $(function () {
             .done(function (transactions) {
                 populateTransactionList(transactions);
             })
-            .fail(function(err){
+            .fail(function (err) {
                 alert("Failed to get transactions. Are you sure BankBer.BackEnd is running?")
             });
     });
@@ -61,7 +61,7 @@ $(function () {
         $("#new-transaction-foot").slideDown("fast");
     });
 
-    $("#submit-new-transaction-btn").click(function() {
+    $("#submit-new-transaction-btn").click(function () {
         $.ajax({
             url: `http://localhost:2226/api/transactions`,
             method: "POST",
@@ -72,9 +72,9 @@ $(function () {
                 Timestamp: $("#new-transaction-date").val()
             }
         })
-        .fail(function(err){
-            alert("Failed to send new transaction. Are you sure BankBer.BackEnd is running?")
-        });
+            .fail(function (err) {
+                alert("Failed to send new transaction. Are you sure BankBer.BackEnd is running?")
+            });
     })
 })
 
