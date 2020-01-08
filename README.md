@@ -28,6 +28,7 @@ We need you, the developer, to implement the following feature requirements to m
 1. Transactions should appear in reverse date order (i.e. the last transaction should be the first transaction)
     - This could be done in either the front-end or the back-end
     - This includes new transactions (i.e. if the user adds a transaction with a date in the middle of the current list of transactions, it should appear in the correct spot without reloading the page)
+1. Users should be able to edit existing transactions (changing the Date, Description, Amount, and Type)
 1. Users need a way to back out so they can:
     - Select a different account to look at
     - Select a different user to look at
