@@ -1,6 +1,7 @@
 let selectedAccount = {};
 
 $(function () {
+    // Call backend to get all users for the dropdown
     $.ajax("http://localhost:2226/api/users")
         .done(function (users) {
             let userSelect = $("#user-select")
@@ -16,6 +17,7 @@ $(function () {
             alert("Failed to get users. Are you sure BankBer.BackEnd is running?")
         });
 
+    // Add click action to the user select button
     $("#user-select-btn").click(function () {
         $("#pick-user-div").slideUp("fast", function () {
             $("#pick-account-div").slideDown("fast");
@@ -37,6 +39,7 @@ $(function () {
             });
     });
 
+    // Add click action to the account select button
     $("#account-select-btn").click(function () {
         $("#pick-account-div").slideUp("fast", function () {
             $("#view-transaction-div").slideDown("fast");
@@ -57,10 +60,12 @@ $(function () {
             });
     });
 
+    // Add click event to the add transaction button
     $("#add-transaction-btn").click(function () {
         $("#new-transaction-foot").slideDown("fast");
     });
 
+    // Add click event to the submit transaction button
     $("#submit-new-transaction-btn").click(function () {
         $.ajax({
             url: `http://localhost:2226/api/transactions`,

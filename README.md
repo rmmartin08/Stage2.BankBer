@@ -18,14 +18,14 @@ We need you, the developer, to implement the following feature requirements to m
     - New transactions should have an input box for description
 1. When inserting a transaction, the user picked date should be the one used
     - The back end doesn't appear to support this for some reason
-1. When displaying the list of transactions, the amounts should have the following formating
+1. When displaying the list of transactions, the amounts should have the following formatting
     - All amounts should have a dollar sign in front of them
     - All amounts should show two decimal places
     - Debit amounts should be red and have a negative sign in front of the dollar sign
 1. After adding a new transaction:
     - The input row should slide back up and hide itself
     - The new transaction should be retrieved from the back-end and displayed in the list
-1. Transactions should appear in reverse date order (i.e. the last transaction should be the first transaction)
+1. Transactions should appear in reverse date order (i.e. the last dated transaction should be the first transaction in the list)
     - This could be done in either the front-end or the back-end
     - This includes new transactions (i.e. if the user adds a transaction with a date in the middle of the current list of transactions, it should appear in the correct spot without reloading the page)
 1. Users need a way to back out so they can:
