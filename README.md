@@ -8,6 +8,9 @@ BankBer allows users to select their name, select a specific account that they o
 
 We need you, the developer, to implement the following feature requirements to make BankBer even better!
 
+## ERD
+![ERD](ERD.jpg)
+
 ## BankBer Requirements
 
 1. Transactions should have a description **_Top Priority!_ Do this first!**
