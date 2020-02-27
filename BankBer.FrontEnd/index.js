@@ -3,16 +3,7 @@ let selectedAccount = {};
 $(function () {
     // Call backend to get all users for the dropdown
     $.ajax("http://localhost:2226/api/users")
-        .done(function (users) {
-            let userSelect = $("#user-select")
-            userSelect.children().remove();
-            for (let user of users) {
-                let newUserOption = $(`<option value="${user.Id}">${user.FirstName} ${user.LastName}</option>`);
-                userSelect.append(newUserOption);
-            }
-
-            userSelect.prop("disabled", false);
-        })
+        .done(renderUsers)
         .fail(function (err) {
             alert("Failed to get users. Are you sure BankBer.BackEnd is running?")
         });
@@ -82,6 +73,16 @@ $(function () {
             });
     })
 })
+
+function renderUsers(users) {
+    let userSelect = $("#user-select");
+    userSelect.children().remove();
+    for (let user of users) {
+        let newUserOption = $(`<option value="${user.Id}">${user.FirstName} ${user.LastName}</option>`);
+        userSelect.append(newUserOption);
+    }
+    userSelect.prop("disabled", false);
+}
 
 function populateTransactionList(transactions) {
     let transactionList = $("#transaction-table");
