@@ -58,7 +58,7 @@ namespace BankBer.BackEnd.Data_Access
                 {
                     Id = Guid.NewGuid(),
                     AccountId = newTransaction.AccountId,
-                    Timestamp = DateTime.Now,
+                    Timestamp = newTransaction.Timestamp,
                     Amount = newTransaction.Amount,
                     Description = newTransaction.Description,
                     Type = newTransaction.Type
