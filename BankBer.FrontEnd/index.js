@@ -64,15 +64,21 @@ $(function () {
             data: {
                 AccountId: selectedAccount.Id,
                 Amount: $("#new-transaction-amount").val(),
-                Type: $("#new-transaction-type option:selected").val().toFixed(2),
+                Type: $("#new-transaction-type option:selected").val(),
                 Timestamp: $("#new-transaction-date").val(),
                 Description: $("#new-description").val().toString()
             }
-        })
+        }).done(function(){
+            $("#new-transaction-amount").val(""),
+            $("#new-transaction-type option:selected").val(""),
+            $("#new-transaction-date").val(""),
+            $("#new-description").val().toString("")
+        }, $("#new-transaction-foot").slideUp("fast"), populateTransactionList)
             .fail(function (err) {
                 alert("Failed to send new transaction. Are you sure BankBer.BackEnd is running?")
             });
     })
+    
 })
 
 function renderUsers(users) {
@@ -93,9 +99,9 @@ function populateTransactionList(transactions) {
         let dateString = `${transactionDate.getMonth() + 1}/${transactionDate.getDate()}/${transactionDate.getFullYear()} ${transactionDate.getHours()}:${transactionDate.getMinutes()}`
         let newTransaction = $(`<tr><td>${dateString}</td>`)
         var result = (transaction.Amount % 1);
-        if (transaction.Type == "debit"){
-            newTransaction.addClass(".color-select")
-        }
+        // if (transaction.Type == "debit"){
+        //     newTransaction.addClass(".color-select")
+        // }
         if (result == 0){
             newTransaction.append($(`<td>$${transaction.Amount}.00</td></div>`))
         }
