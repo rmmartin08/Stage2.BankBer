@@ -56,6 +56,7 @@
                 <th scope="col">Date</th>
                 <th scope="col">Amount</th>
                 <th scope="col">Type</th>
+                <th scope="col">Description</th>
             </thead>
             <tbody>
 
@@ -80,8 +81,16 @@
                             <option value="Debit">Debit</option>
                             <option value="Credit">Credit</option>
                         </select>
+                        </td>
+                        <td>
+                            <input type="text" id="new-description" class = "form-control">
+                        </select>
+                        </td>
+                        
                         <br>
+                        <td>
                         <button id="submit-new-transaction-btn" class="btn btn-success w-100">Add Transaction</button>
+                        </td>
                 </tr>
             </tfoot>
         </table>

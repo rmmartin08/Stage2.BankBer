@@ -11,7 +11,7 @@ namespace BankBer.BackEnd.Models.Transaction
         [Required]
         public Guid AccountId { get; set; }
         public decimal Amount { get; set; }
-
+        public string Description { get; set; }
         public Transaction.TransactionType Type { get; set; }
         public DateTime Timestamp { get; set; }
     }

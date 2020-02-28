@@ -65,7 +65,8 @@ $(function () {
                 AccountId: selectedAccount.Id,
                 Amount: $("#new-transaction-amount").val(),
                 Type: $("#new-transaction-type option:selected").val(),
-                Timestamp: $("#new-transaction-date").val()
+                Timestamp: $("#new-transaction-date").val(),
+                Description: $("#new-description").val().toString()
             }
         })
             .fail(function (err) {
@@ -90,7 +91,13 @@ function populateTransactionList(transactions) {
     for (let transaction of transactions) {
         let transactionDate = new Date(transaction.Timestamp)
         let dateString = `${transactionDate.getMonth() + 1}/${transactionDate.getDate()}/${transactionDate.getFullYear()} ${transactionDate.getHours()}:${transactionDate.getMinutes()}`
-        let newTransaction = $(`<tr><td>${dateString}</td><td>${transaction.Amount}</td><td>${transaction.Type}</td></div>`)
+        let newTransaction = $(`<tr><td>${dateString}</td><td>${transaction.Amount}</td><td>${transaction.Type}</td>`)
+        if (transaction.Description != null){            
+            newTransaction.append($(`<td>${transaction.Description}</td></div>`))
+        }
+        else {
+            newTransaction.append($(`<td>No Description</td></div>`))
+        }
         transactionList.append(newTransaction);
     }
 }
